@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Menu</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .navbar {
+            background-color: #007bff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar .nav-container {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 3px;
+        }
+        
+        .navbar .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .navbar .nav-links a.active {
+            background-color: #28a745;
+        }
+        
+        .container {
+            background-color: white;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 2px solid #007bff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .info-bar {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            padding: 18px;
+            margin: 20px 0;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .info-bar input[type="date"] {
+            padding: 8px;
+            border: 1px solid #007bff;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        .limit {
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .total {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .meal-box {
+            border: 2px solid #dee2e6;
+            padding: 18px;
+            margin: 18px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .meal-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .meal-box h3 {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 12px;
+            margin: 0 0 15px 0;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+        }
+        
+        .meal-box select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #007bff;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .meal-box select:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        
+        .meal-cal {
+            text-align: center;
+            font-weight: bold;
+            background-color: white;
+            padding: 8px;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .summary h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .meal-line {
+            margin-bottom: 8px;
+            font-size: 15px;
+            padding: 5px;
+        }
+        
+        .meal-line strong {
+            color: #155724;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40,167,69,0.4);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .warning {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"> HealthSpark </div>
+            <div class="nav-links">
+                <a href="/">Registration</a>
+                <a href="/recommd">Recommendations</a>
+                <a href="/dietofmenu.html" class="active">Diet Menu</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="header-icon">🍽️</div>
+            <h2>Daily Diet Plan</h2>
+        </div>
+        
+        <div class="info-bar">
+            <div>Plan Date: <input type="date" id="planDate" onchange="updatePlanDate()"></div>
+            <div style="margin-top: 10px;">
+                Daily Limit: <span id="limit" class="limit">0</span> kcal | 
+                Current Total: <span id="total" class="total">0</span> kcal
+            </div>
+            <div id="warningMsg" class="warning" style="display: none;"></div>
+        </div>
+
+        <div>
+            <!-- Morning Breakfast -->
+            <div class="meal-box">
+                <h3>🌅 Breakfast</h3>
+                <select id="morningMeal" onchange="updateMeal('morning')">
+                    <option value="">Select breakfast</option>
+                    <option value="Tea + Biscuits:120">Tea + Biscuits - 120 kcal</option>
+                    <option value="Poha (1 plate):250">Poha (1 plate) - 250 kcal</option>
+                    <option value="Idli (3 pcs) + Sambar:300">Idli (3 pcs) + Sambar - 300 kcal</option>
+                    <option value="Upma (1 plate):220">Upma (1 plate) - 220 kcal</option>
+                    <option value="Paratha (2 pcs) + Curd:400">Paratha (2 pcs) + Curd - 400 kcal</option>
+                    <option value="Samose(2)+ kachori:350">Samose(2) + kachori - 350 kcal</option>
+                    <option value="Dosa (2) + Chutney:380">Dosa (2) + Chutney - 380 kcal</option>
+                    <option value="Gilla Wada (4):300">Gilla Wada (4) - 300 kcal</option>
+                </select>
+                <div class="meal-cal">Calories: <span id="morningCal">0</span></div>
+            </div>
+
+            <div class="meal-box">
+                <h3>☀️ Lunch</h3>
+                <select id="afternoonMeal" onchange="updateMeal('afternoon')">
+                    <option value="">Select lunch</option>
+                    <option value="Rice + Dal + Vegetables:450">Rice + Dal + Vegetables - 450 kcal</option>
+                    <option value="Dal-Bhaji + Poli(4): 480">Dal-Bhaji + Poli(4) - 480 kcal</option>
+                    <option value="Chicken Curry + Rice:600">Chicken Curry + Rice - 600 kcal</option>
+                    <option value="Fish Curry + Rice:550">Fish Curry + Rice - 550 kcal</option>
+                    <option value="Aloo bhaji + basmati rice:520">Aloo bhaji + basmati rice - 520 kcal</option>
+                    <option value="Biryani (1 plate):650">Biryani (1 plate) - 650 kcal</option>
+                    <option value="Chole + Rice + Curd: 500">Chole + Rice + Curd - 500 kcal</option>
+                    <option value="Panner + Bhakar(2):420">Mix Veg + Roti (3) + Dal - 420 kcal</option>
+                    <option value="Paneer Curry + Roti (4):580">Paneer Curry + Roti (4) - 580 kcal</option>
+                    <option value="Bhakar + Besan: 400">Sambar Rice + Pickle - 400 kcal</option>
+                </select>
+                <div class="meal-cal">Calories: <span id="afternoonCal">0</span></div>
+            </div>
+
+            <div class="meal-box">
+                <h3>🌙 Dinner</h3>
+                <select id="nightMeal" onchange="updateMeal('night')">
+                    <option value="">Select dinner</option>
+                    <option value="Khichdi + Curdi:280">Light Khichdi + Curd - 280 kcal</option>
+                    <option value="Poli (2)+ Dal + Vegetables:320">Roti (2) + Dal + Vegetables - 320 kcal</option>
+                    <option value="Bread + Salad + Chapati:250">Soup + Bread + Salad - 250 kcal</option>
+                    <option value="Allo-Vangya chi baji + poli(4):450">Allo-Vangya chi baji + poli(4) - 450 kcal</option>
+                    <option value="Grilled Chicken + Salad:350">Grilled Chicken + Salad - 350 kcal</option>
+                    <option value="Fish + Rice:300">Fish + Rice - 300 kcal</option>
+                    <option value="Dal + Roti (4) + Curd:400">Dal + Roti (3) + Curd - 400 kcal</option>
+                    <option value="Zunka-Bhakar and rassa:320">Zunka-Bhakar and rassa - 320 kcal</option>
+                    <option value="Egg Curry + Roti (2):340">Egg Curry + Roti (2) - 340 kcal</option>
+                    <option value="Basundi + Poli(4): 350">Basundi + Poli(4) - 350 kcal</option>
+                    <option value="Puran-poli + Milk: 320">Puran-poli + Milk - 320 kcal</option>
+                </select>
+                <div class="meal-cal">Calories: <span id="nightCal">0</span></div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h3> Selected Meals </h3>
+            <div class="meal-line"><strong>Breakfast:</strong> <span id="morningMealName">Not selected</span></div>
+            <div class="meal-line"><strong>Lunch:</strong> <span id="afternoonMealName">Not selected</span></div>
+            <div class="meal-line"><strong>Dinner:</strong> <span id="nightMealName">Not selected</span></div>
+        </div>
+
+        <form id="finalForm" action="/saveData" method="post">
+            <input type="hidden" name="name" id="name">
+            <input type="hidden" name="age" id="age">
+            <input type="hidden" name="gender" id="gender">
+            <input type="hidden" name="height" id="height">
+            <input type="hidden" name="weight" id="weight">
+            <input type="hidden" name="contact" id="contact">
+            <input type="hidden" name="bmi" id="bmi">
+            <input type="hidden" name="bmr" id="bmr">
+            <input type="hidden" name="calories" id="calories">
+            <input type="hidden" name="planDate" id="hiddenPlanDate">
+            <input type="hidden" name="meals" id="meals">
+            <input type="hidden" name="totalCalories" id="totalCalories">
+            
+            <div class="btn-container">
+                <button type="submit" class="save-btn">💾 Save My Diet Plan</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 HealthSpark ! </p>
+    </div>
+
+    <script>
+        let totalCal = 0;
+        let limit = 0;
+        let mealPlan = {
+            morning: { name: '', calories: 0 },
+            afternoon: { name: '', calories: 0 },
+            night: { name: '', calories: 0 }
+        };
+
+        function updateMeal(mealTime) {
+            const selectElement = document.getElementById(`${mealTime}Meal`);
+            const selectedValue = selectElement.value;
+            
+            totalCal -= mealPlan[mealTime].calories;
+            
+            if (selectedValue === '') {
+                mealPlan[mealTime] = { name: '', calories: 0 };
+                document.getElementById(`${mealTime}Cal`).innerText = '0';
+                document.getElementById(`${mealTime}MealName`).innerText = 'Not selected';
+            } else {
+                const [mealName, caloriesStr] = selectedValue.split(':');
+                const calories = parseInt(caloriesStr);
+                
+                if (totalCal + calories > limit) {
+                    if (!confirm("The calorie limit will be exceeded. Continue?")) {
+                        selectElement.value = mealPlan[mealTime].name ? 
+                            `${mealPlan[mealTime].name}:${mealPlan[mealTime].calories}` : '';
+                        totalCal += mealPlan[mealTime].calories;
+                        return;
+                    }
+                }
+                
+                mealPlan[mealTime] = { name: mealName, calories: calories };
+                totalCal += calories;
+                
+                document.getElementById(`${mealTime}Cal`).innerText = calories;
+                document.getElementById(`${mealTime}MealName`).innerText = mealName;
+            }
+            
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById("total").innerText = totalCal;
+            document.getElementById("totalCalories").value = totalCal;
+            
+            const mealPlanArray = [];
+            Object.keys(mealPlan).forEach(time => {
+                if (mealPlan[time].name) {
+                    mealPlanArray.push({
+                        time: time,
+                        name: mealPlan[time].name,
+                        calories: mealPlan[time].calories
+                    });
+                }
+            });
+            document.getElementById("meals").value = JSON.stringify(mealPlanArray);
+            
+            const warningDiv = document.getElementById("warningMsg");
+            if (totalCal > limit) {
+                warningDiv.style.display = "block";
+                warningDiv.innerText = "Calorie limit exceeded!";
+            } else {
+                warningDiv.style.display = "none";
+            }
+        }
+
+        function updatePlanDate() {
+            const planDate = document.getElementById("planDate").value;
+            document.getElementById("hiddenPlanDate").value = planDate;
+        }
+
+        window.onload = function () {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("planDate").value = today;
+            document.getElementById("hiddenPlanDate").value = today;
+            
+            const params = new URLSearchParams(window.location.search);
+            limit = parseInt(params.get('cal')) || 2000;
+            document.getElementById("limit").innerText = limit;
+            
+            document.getElementById("name").value = params.get("name") || "";
+            document.getElementById("age").value = params.get("age") || "";
+            document.getElementById("gender").value = params.get("gender") || "";
+            document.getElementById("height").value = params.get("height") || "";
+            document.getElementById("weight").value = params.get("weight") || "";
+            document.getElementById("contact").value = params.get("contact") || "";
+            document.getElementById("bmi").value = params.get("bmi") || "";
+            document.getElementById("bmr").value = params.get("bmr") || "";
+            document.getElementById("calories").value = params.get("cal") || "";
+            
+            updateDisplay();
+        }
+
+        document.getElementById("finalForm").addEventListener("submit", function(e) {
+            const planDate = document.getElementById("planDate").value;
+            if (!planDate) {
+                e.preventDefault();
+                alert("Please select the date.");
+                return;
+            }
+            document.getElementById("hiddenPlanDate").value = planDate;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calories Burner and Diet Recommendations Planner:- Registration</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: #007bff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar .container {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 3px;
+        }
+        
+        .navbar .nav-links a:hover {
+            background-color: rgba(177, 94, 177, 0.2);
+        }
+        
+        .navbar .nav-links a.active {
+            background-color: #c88cc8;
+        }
+        
+        .form-container {
+            background-color: rgb(105, 190, 218);
+            width: 550px;
+            margin: 40px auto;
+            padding: 35px;
+            border: 2px solid #007bff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header-icon {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header-icon span {
+            font-size: 48px;
+            color: #007bff;
+        }
+        
+        h2 {
+            color: #007bff;
+            margin-bottom: 35px;
+            font-size: 26px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 160px;
+            font-weight: bold;
+            color: #495057;
+            font-size: 15px;
+        }
+        
+        input[type="text"], input[type="number"] {
+            width: 220px;
+            padding: 10px;
+            border: 1px solid #007bff;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"], input[type="number"] {
+            border-color: #0056b3;
+            outline: none;
+            background-color: #e3f2fd;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        
+        .radio-group {
+            display: inline-block;
+        }
+        
+        .radio-group label {
+            width: auto;
+            margin-right: 25px;
+            font-weight: normal;
+            background-color: #d1ecf1;
+            padding: 8px 12px;
+            border: 1px solid #bee5eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-group label:hover {
+            background-color: #bee5eb;
+        }
+        
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        input[type="submit"] {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 25px;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40,167,69,0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"> HealthSpark </div>
+            <div class="nav-links">
+                <a href="/" class="active">Registration</a>
+                <a href="/recommd">Recommendations</a>
+                <a href="/dietofmenu.html">Diet Menu</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="header-icon">
+            <span>👤</span>
+        </div>
+        <h2>Registration Form</h2>
+        
+        <form style="text-align: center;" action="/recommd" method="get">
+            <div class="form-group">
+                <label>Name :</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" name="age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male" required> Male</label>
+                    <label><input type="radio" name="gender" value="female" required> Female</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mobile Number:</label>
+                <input type="number" name="contact" required>
+            </div>
+
+            <div class="form-group">
+                <label>Height (cm):</label>
+                <input type="number" name="height" min="50" max="300" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Weight (kg):</label>
+                <input type="number" name="weight" min="20" max="500" step="0.1" required>
+            </div>
+
+            <input type="submit" value="Get Recommendations ➡️">
+        </form>
+    </div>
+
+    <div class="footer">
+        <p> 2025 HealthSpark iu - Your wellness journey starts now!</p>
+    </div>
+</body>
+</html>

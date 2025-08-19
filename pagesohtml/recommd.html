@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Recommendation</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .navbar {
+            background-color: #007bff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar .container {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 3px;
+        }
+        
+        .navbar .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .navbar .nav-links a.active {
+            background-color: #28a745;
+        }
+        
+        .container {
+            background-color: rgb(35, 9, 180);
+            width: 650px;
+            margin: 40px auto;
+            padding: 40px;
+            border: 2px solid #007bff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #007bff;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+        
+        .recommendation {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid #dee2e6;
+            font-size: 18px;
+            border-left: 4px solid #007bff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .recommendation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .recommendation b {
+            color: #495057;
+            font-size: 16px;
+        }
+        
+        .recommendation span {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 18px;
+        }
+        
+        .bmi-category {
+            color: #28a745 !important;
+            font-style: italic;
+            font-size: 16px;
+        }
+        
+        .result-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        
+        .result-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 35px;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40,167,69,0.4);
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            margin-top: 40px;
+        }
+        
+        /* .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #007bff, #28a745);
+            border-radius: 4px;
+            width: 66%;
+        } */
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container" style="width: 1000px; margin: 0 auto; border: none; padding: 0;">
+            <div class="logo"> Health Planner </div>
+            <div class="nav-links">
+                <a href="/">Registration</a>
+                <a href="/recommd" class="active">Recommendations</a>
+                <a href="/dietofmenu.html">Diet Menu</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-icon">📊</div>
+        <h2>Your Diet Recommendation</h2>
+        
+        <!-- <div class="progress-bar">
+            <div class="progress"></div>
+        </div> -->
+        
+        <div class="recommendation">
+            <b>BMI:</b> <span id="bmi"></span> <span id="bmi-category" class="bmi-category"></span>
+        </div>
+        <div class="recommendation">
+            <b>BMR:</b> <span id="bmr"></span> kcal/day
+        </div>
+        <div class="recommendation">
+            <b>Recommended Daily Calories:</b> <span id="calories"></span> kcal
+        </div>
+        <a id="menuLink">
+            <button>Go to Diet Menu 🍽️</button>
+        </a>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Health Planner - Your wellness journey continues! 🌟</p>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get("name");
+            const height = parseFloat(params.get("height"));
+            const weight = parseFloat(params.get("weight"));
+            const age = parseInt(params.get("age"));
+            const gender = params.get("gender");
+            const contact = params.get("contact");
+
+            if (!height || !weight || !age || !gender || !name) {
+                alert("fill the all fields properly!");
+                return;
+            }
+
+            const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+
+            let bmr;
+            if (gender === "male") {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+            bmr = Math.round(bmr);
+
+            let calories;
+            let bmiCategory;
+            if (bmi < 18.5) {
+                calories = 2500;
+                bmiCategory = "(Underweight)";
+            } else if (bmi < 24.9) {
+                calories = 2000;
+                bmiCategory = "(Normal weight)";
+            } else if (bmi < 29.9) {
+                calories = 1800;
+                bmiCategory = "(Overweight)";
+            } else {
+                calories = 1500;
+                bmiCategory = "(Extremee fat)";
+            }
+
+            document.getElementById("bmi").innerText = bmi;
+            document.getElementById("bmi-category").innerText = bmiCategory;
+            document.getElementById("bmr").innerText = bmr;
+            document.getElementById("calories").innerText = calories;
+           
+            document.getElementById("menuLink").href = 
+                `/dietofmenu.html?name=${encodeURIComponent(name)}&age=${age}&gender=${gender}&height=${height}&weight=${weight}&contact=${contact}&bmi=${bmi}&bmr=${bmr}&cal=${calories}`;
+        }
+    </script>
+</body>
+</html>
